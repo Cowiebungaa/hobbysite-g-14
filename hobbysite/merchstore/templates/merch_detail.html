@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>Merchandise Store</title>
+</head>
+<body>
+    <h1>Merch Detail</h1>
+    <h2>{{ product.name }}</h2>
+    <p><strong>Product Type:</strong> {{ product.product_type.name }}</p>
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <p><strong>Price:</strong> ${{ product.price }}</p>
+    <a href="{% url 'item-list' %}">Back to Item List</a>
+</body>
+</html>

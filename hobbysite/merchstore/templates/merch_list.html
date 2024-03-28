@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Merchandise Store</title>
+</head>
+<body>
+    <h1>Merch List</h1>
+    <ul>
+        {% for product_type in product_types %}
+            <li>
+                <h2>{{ product_type.name }}</h2>
+                <p>{{ product_type.description }}</p>
+                <ul>
+                    {% for product in product_type.product_set.all %}
+                        <li>
+                            <a href="{% url 'merch_detail' pk=product.pk %}">{{ product.name }}</a>
+                            - ${{ product.price }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+    </ul>
+</body>
+</html>
