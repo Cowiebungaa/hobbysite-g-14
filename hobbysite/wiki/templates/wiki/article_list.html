@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Wiki - Article List</title>
+</head>
+<body>
+    <h1>Article List</h1>
+    <ul>
+        {% for article in articles %}
+            <li><a href="{% url 'wiki:article_detail' pk=article.pk %}">{{ article.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
