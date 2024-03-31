@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commission Detail</title>
+</head>
+<body>
+    <h1>Advertising Sales</h1>
+    <p>Description: Advertising Sales Representative where you sell advertising spaces to companies, businesses, and individuals. Contacting potential business partners and clients, as well as maintaining your partners and clients accounts.</p>
+    <p>People Required: 10</p>
+    <p>Created On: January 20, 2024</p>
+    <p>Updated On: February 20, 2024.</p>
+
+    <h2>Comments:</h2>
+    {% if commission.comment_set.all %}
+        <ul>
+            {% for comment in commission.comment_set.all %}
+                <li>
+                    <p>{{ comment.entry }}</p>
+                    <p>Created On: {{ comment.created_on }}</p>
+                    <p>Last Updated On: {{ comment.updated_on }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments available.</p>
+    {% endif %}
+</body>
+</html>

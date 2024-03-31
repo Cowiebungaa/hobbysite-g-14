@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commission Detail</title>
+</head>
+<body>
+    <h1>Photo and Video Editor</h1>
+    <p>Description: Connect with potential clients and business partners and use your expertise in photo and video editing to meet their needs and requirements, as well as apply your creativity to satisfy them of what they want to see and make their dream photo and video come to life.</p>
+    <p>People Required: 2</p>
+    <p>Created On: January 5, 2024</p>
+    <p>Updated On: March 20, 2024.</p>
+
+    <h2>Comments:</h2>
+    {% if commission.comment_set.all %}
+        <ul>
+            {% for comment in commission.comment_set.all %}
+                <li>
+                    <p>{{ comment.entry }}</p>
+                    <p>Created On: {{ comment.created_on }}</p>
+                    <p>Last Updated On: {{ comment.updated_on }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments available.</p>
+    {% endif %}
+</body>
+</html>

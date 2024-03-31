@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commission Detail</title>
+</head>
+<body>
+    <h1>Sales Consultant</h1>
+    <p>Description: Connect with potential clients and business partners, promote them of the product or service you are trying to sell and assure them of the benefits of investing in you, as well as making sure that their accounts are managed and taken care of as a customer.</p>
+    <p>People Required: 10</p>
+    <p>Created On: February 14, 2024</p>
+    <p>Updated On: February 28, 2024.</p>
+
+    <h2>Comments:</h2>
+    {% if commission.comment_set.all %}
+        <ul>
+            {% for comment in commission.comment_set.all %}
+                <li>
+                    <p>{{ comment.entry }}</p>
+                    <p>Created On: {{ comment.created_on }}</p>
+                    <p>Last Updated On: {{ comment.updated_on }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments available.</p>
+    {% endif %}
+</body>
+</html>

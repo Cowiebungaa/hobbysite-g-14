@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commission Detail</title>
+</head>
+<body>
+    <h1>Travel Agent</h1>
+    <p>Description: Assist and advise potential clients in organizing their dream vacation, inform them regarding destinations, cultures, tourist spots, activities and weather. Should be passionate about traveling the world and making your clients see the same vision.</p>
+    <p>People Required: 5</p>
+    <p>Created On: March 20, 2024</p>
+    <p>Updated On: March 23, 2024.</p>
+
+    <h2>Comments:</h2>
+    {% if commission.comment_set.all %}
+        <ul>
+            {% for comment in commission.comment_set.all %}
+                <li>
+                    <p>{{ comment.entry }}</p>
+                    <p>Created On: {{ comment.created_on }}</p>
+                    <p>Last Updated On: {{ comment.updated_on }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments available.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commission Detail</title>
+</head>
+<body>
+    <h1>Online Product Selling</h1>
+    <p>Description: Use your platform or any medium where you can gather your own audience and sell products and sell services through your platform or any medium on a commission basis.</p>
+    <p>People Required: 3</p>
+    <p>Created On: March 21, 2024</p>
+    <p>Updated On: March 23, 2024.</p>
+
+    <h2>Comments:</h2>
+    {% if commission.comment_set.all %}
+        <ul>
+            {% for comment in commission.comment_set.all %}
+                <li>
+                    <p>{{ comment.entry }}</p>
+                    <p>Created On: {{ comment.created_on }}</p>
+                    <p>Last Updated On: {{ comment.updated_on }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments available.</p>
+    {% endif %}
+</body>
+</html>

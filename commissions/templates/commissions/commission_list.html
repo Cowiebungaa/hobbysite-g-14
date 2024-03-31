@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commission List</title>
+</head>
+<body>
+    <h1>Commission List</h1>
+    <ul>
+        
+            <li><a href="{% url 'commissions:commission_detail_1' commission.pk %}">Online Product Selling</a></li>
+            <li><a href="{% url 'commissions:commission_detail_2' commission.pk %}">Photo and Video Editor</a></li>
+            <li><a href="{% url 'commissions:commission_detail_3' commission.pk %}">Sales Consultant</a></li>
+            <li><a href="{% url 'commissions:commission_detail_4' commission.pk %}">Travel Agent</a></li>
+            <li><a href="{% url 'commissions:commission_detail_5' commission.pk %}">Advertising Sales</a></li>
+        
+    </ul>
+</body>
+</html>
