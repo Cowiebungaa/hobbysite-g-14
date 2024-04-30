@@ -21,5 +21,6 @@ from merchstore.views import MerchListView
 urlpatterns = [
     path('', MerchListView.as_view()),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('merchstore/', include('merchstore.urls')),
 ]

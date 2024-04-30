@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <ul>
+        {% for transaction in transactions %}
+        <li>{{ transaction.product.name }} - Quantity: {{ transaction.amount }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'merchstore:merch_list' %}"><button>Back to the Merch store</button></a>
+</body>
+</html>
