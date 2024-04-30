@@ -1,12 +1,26 @@
-from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Product, Transaction
 from .forms import TransactionForm
 from user_management.models import Profile
 
+class CustomLoginView(LoginView):
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if not hasattr(user, 'profile'):
+                Profile.objects.create(user=user)
+            return redirect('merchstore:merch_list')
+        else:
+            return render(request, 'login.html', {'error_message': 'Invalid credentials'})
 
 class MerchListView(ListView):
     model = Product

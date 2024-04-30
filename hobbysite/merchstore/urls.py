@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import MerchListView, MerchDetailView, MerchCreateView, MerchUpdateView, CartView, TransactionListView
+from .views import MerchListView, MerchDetailView, MerchCreateView, MerchUpdateView, CartView, TransactionListView, CustomLoginView
 
 urlpatterns = [
+    path('login/', CustomLoginView.as_view(), name='custom_login'),
     path('items/', MerchListView.as_view(), name='merch_list'),
     path('item/<int:pk>/', MerchDetailView.as_view(), name='merch_detail'),
     path('item/add/', MerchCreateView.as_view(), name='product_create'),
