@@ -1,27 +1,20 @@
-from django.db import models
-from django.utils import timezone
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from .models import Job, JobCommissionApplication, Commission
 
-class Commission(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    people_required = models.PositiveIntegerField()
-    created_on = models.DateTimeField(default=timezone.now)
-    updated_on = models.DateTimeField(auto_now=True)
+@receiver(post_save, sender=JobCommissionApplication)
+def update_job_personnel(sender, instance, made, **kwargs):
+    if instance.status == JobCommissionApplication.BACCEPTED:
+        instance.job.openPersonnel -= 1
+        if instance.job.openPersonnel == 0:
+            instance.job.status = Job.FULL
+        instance.job.save()
 
-    class Meta:
-        ordering = ['created_on']
-
-    def __str__(self):
-        return self.title
-
-class Comment(models.Model):
-    commission = models.ForeignKey(Commission, on_delete=models.CASCADE)
-    entry = models.TextField()
-    created_on = models.DateTimeField(default=timezone.now)
-    updated_on = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['-created_on']
-
-    def __str__(self):
-        return f"Comment on {self.commission.title}"
+@receiver(post_save, sender=Job)
+def update_commission_personnel(sender, instance, made, **kwargs):
+    commission = instance.commission
+    jobs = Job.objects.filter(commission=commission)
+    commission.openPersonnel = sum(job.openPersonnel for job in jobs)
+    if commission.openPersonnel == 0:
+        commission.status = Commission.BFULL
+    commission.save()

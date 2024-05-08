@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Commission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: #f8f8f8;
+        }
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        h3 {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 20px 40px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .form-group textarea {
+            height: 100px;
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <h2>Make a Commission</h2>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="commission_title">Commission Title:</label>
+            <input type="text" id="commission_title" name="title">
+        </div>
+        <div class="form-group">
+            <label for="commission_description">Commission Description:</label>
+            <textarea id="commission_description" name="description"></textarea>
+        </div>
+        <h2>Jobs for this Commission Application</h2>
+        {{ job_formset.management_form }}
+        {% for job_form in job_formset %}
+        <div class="form-group">
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

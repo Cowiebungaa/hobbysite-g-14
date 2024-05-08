@@ -1,0 +1,51 @@
+{% load static %}
+{% block title %}Job Commission App Detail{% endblock %}
+{% block content %}
+    <div style="padding: 20px;">
+        <h1 style="font-size: 24px; color: #333; margin-bottom: 10px;">{{ object.title }}</h1>
+        <h3 style="font-size: 18px; color: #666; margin-bottom: 10px;">made by: {{ object.author }}</h3>
+        <h3 style="font-size: 18px; color: #666; margin-bottom: 10px;">Status: {{ object.get_status_display }}</h3>
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 20px; color: #333; margin-bottom: 10px;">Commission Description:</h2>
+            <p style="font-size: 16px; color: #666;">{{ object.description }}</p>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <p style="font-size: 16px; color: #666;"><strong>made On:</strong> {{ object.made_at }}</p>
+            <p style="font-size: 16px; color: #666;"><strong>Last Updated:</strong> {{ object.updated_at }}</p>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <p style="font-size: 16px; color: #666;"><strong>Total Manpower Required:</strong> {{ total_manpower }}</p>
+            <p style="font-size: 16px; color: #666;"><strong>Open Manpower:</strong> {{ object.openManpower }}</p>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 20px; color: #333; margin-bottom: 10px;">List of Jobs Needed:</h2>
+            <ul style="list-style-type: none; padding: 0;">
+                {% for job in object.jobs.all %}
+                    <li style="margin-bottom: 10px;">
+                        <h3 style="font-size: 18px; color: #333; margin-bottom: 5px;">{{ job }}</h3>
+                        <ul style="list-style-type: none; padding-left: 0;">
+                            <li style="font-size: 16px; color: #666;">Total Manpower Needed:  {{ job.manpowerRequired }}</li>
+                            <li style="font-size: 16px; color: #666;">Open Manpower:  {{ job.openManpower }}</li>
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if request.user.is_authenticated %}
+            <div style="margin-bottom: 20px;">
+                <h2 style="font-size: 20px; color: #333; margin-bottom: 10px;">Application Form:</h2>
+                <p style="font-size: 16px; color: #666;"><strong>Current User:</strong> {{ user.profile }}</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button style="font-size: 16px; background-color: #007bff; color: #fff; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Apply to Job</button>
+                </form>
+            </div>
+        {% endif %}
+        {% if request.user.is_authenticated and request.user.profile == object.author %}
+            <div>
+                <h2 style="font-size: 20px; color: #333;"><a href="{% url 'commissions:commission-update' object.pk %}" style="color: #007bff; text-decoration: none;">Edit This Commission</a></h2>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
